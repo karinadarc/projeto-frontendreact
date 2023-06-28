@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Filters from "./Components/Filters/Filters";
 import Home from "./Components/ProductList/Home/Home";
 import Cart from "./Components/ShoppingCart/Cart/Cart";
 import { GlobalStyles } from "./GlobalStyles";
-import { listaDeProdutos} from "./assets/productsList";
+import { listaDeProdutos } from "./assets/productsList";
+import { MainApp, HeaderApp } from "./AppStyle";
+
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -11,13 +13,12 @@ function App() {
   const [minFilter, setMinFilter] = useState("");
   const [maxFiler, setMaxFilter] = useState("");
   const [searchFilter, setSearchFilter] = useState("");
-  // const [listaDeProdutos, setListaDeProdutos] = useState(Catalogo);
+  
 
-
- const filterProducts= listaDeProdutos 
-  .filter((produto) => {
-    if(minFilter){
-      return produto.value >= parseInt(minFilter)
+  const filterProducts = listaDeProdutos
+    .filter((produto) => {
+      if (minFilter) {
+        return produto.value >= parseInt(minFilter);
       }
       return true;
     })
@@ -27,19 +28,46 @@ function App() {
       }
       return true;
     })
-      .filter((produto) => {
-        if (searchFilter) {
-          return produto.name.toLowerCase().includes(searchFilter.toLowerCase());
-        }
-        return true;
+    .filter((produto) => {
+      if (searchFilter) {
+        return produto.name.toLowerCase().includes(searchFilter.toLowerCase());
+      }
+      return true;
     });
-    
+
+    const saveLocalStorage = () => {
+     const listLocal = JSON.stringify(cart);
+     localStorage.setItem("cart", listLocal);
+   };
+
   
+
+  useEffect(() => {
+    const listLocal = JSON.parse(localStorage.getItem("cart"));
+    listLocal && setCart(listLocal);
+  }, []);
+
+  
+
+  useEffect(() => {
+    if(cart.length){saveLocalStorage()
+    
+    } else{
+      localStorage.removeItem('cart')
+    }
+
+    
+    
+  }, [cart]);
 
   return (
     <>
       <GlobalStyles />
-      <main>
+
+      <MainApp>
+        <HeaderApp>
+          <h1>SPACE FASHION</h1>
+        </HeaderApp>
         <Filters
           minFilter={minFilter}
           setMinFilter={setMinFilter}
@@ -47,7 +75,6 @@ function App() {
           setMaxFilter={setMaxFilter}
           searchFilter={searchFilter}
           setSearchFilter={setSearchFilter}
-          
         />
         <Home
           listaDeProdutos={filterProducts}
@@ -55,7 +82,6 @@ function App() {
           setAmount={setAmount}
           cart={cart}
           setCart={setCart}
-         
         />
         <Cart
           amount={amount}
@@ -63,7 +89,7 @@ function App() {
           cart={cart}
           setCart={setCart}
         />
-      </main>
+      </MainApp>
     </>
   );
 }
