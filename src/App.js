@@ -65,11 +65,11 @@ function App() {
       <MainApp>
         <HeaderApp>
           <Logo
-            src={process.env.PUBLIC_URL + "imagens/logo1.png"}
+            src={process.env.PUBLIC_URL + "/imagens/logo1.png"}
             alt="Imagem"
           />
           <AstroLogo
-            src={process.env.PUBLIC_URL + "imagens/astro.png"}
+            src={process.env.PUBLIC_URL + "/imagens/astro.png"}
             alt="Imagem"
           />
         </HeaderApp>

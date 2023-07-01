@@ -20,7 +20,7 @@ function ProductCard(props) {
 
   return (
     <GeralStyle>
-      <CardImagem src={props.produto.imageUrl} />
+      <CardImagem src={process.env.PUBLIC_URL+props.produto.imageUrl} />
 
       <NomeProduto>{props.produto.name} </NomeProduto>
       {/* <TamanhoProdutos>{props.produto.tamanhos.join(" | ")} </TamanhoProdutos> */}

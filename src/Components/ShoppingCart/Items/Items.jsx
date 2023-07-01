@@ -16,7 +16,7 @@ function Items({ cart, callbackClick }) {
               }}
             >
               <img
-                src={process.env.PUBLIC_URL + "icones/lixeira.png"}
+                src={process.env.PUBLIC_URL + "/icones/lixeira.png"}
                 alt="Imagem"
               />
             </button>
